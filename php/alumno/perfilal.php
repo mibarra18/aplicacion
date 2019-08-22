@@ -13,7 +13,20 @@ if (!isset($_SESSION['tipo'])){
     }
 }
 
+$user=$_SESSION['tipo'];
 
+$sql="SELECT * FROM usuario WHERE idUsuario=1218100520 AND idTipoUsuario='$user'";
+
+        $consulta=mysqli_query($connect,$sql);
+        $arreglo=mysqli_fetch_array($consulta);
+        $resultado=mysqli_query($connect,$sql);
+
+        
+        $idUsuario=$arreglo[0];
+        $username=$arreglo[2];
+        $nombre=$arreglo[4];
+        $grupo=$arreglo[6];
+        $carrera=$arreglo[7];
 
 		
 
