@@ -127,7 +127,7 @@ $sql="SELECT * FROM usuario WHERE idUsuario=1218100520 AND idTipoUsuario='$user'
                     </div>
                 </nav>
 
-            </div>
+        </div>
         </div>
 
         <div class="row home">

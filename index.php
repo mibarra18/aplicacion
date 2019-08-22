@@ -137,7 +137,7 @@ if(isset($_GET['salir'])){
                         <input type="password" name="password" placeholder="Constraseña">
                     </div>
 
-                    <input type="submit" value="Ingresar">
+                    <input type="submit" class="btn btn-primary" value="Ingresar">
                 </form>
                     <br>
                     <br>

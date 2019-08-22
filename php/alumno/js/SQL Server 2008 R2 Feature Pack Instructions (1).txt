@@ -1,0 +1,8 @@
+SQL Server 2008 R2 Feature Pack Instructions
+The links to the SQL Server 2008 R2 Feature Pack components can be found in the 
+“Instructions” section on the SQL Server 2008 R2 Feature Pack page. 
+-          The “Instructions” section can be found about half way down the SQL 
+Server 2008 R2 Feature Pack page.
+-          Once you navigate to the section please be certain to pick the 
+appropriate component architecture for download. 
+ 
