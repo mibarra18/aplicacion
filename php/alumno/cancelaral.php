@@ -6,7 +6,8 @@ include_once "../../conexion.php";
 //Archivo de conexión a la base de datos.
 
 $usr=$_SESSION['tipo'];
-$sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombreM, horario.dia, usuario.nombre FROM asesoria, usuario, estatus, materia, horario WHERE idUsuario=1218100520";
+$a=$_SESSION['username'];
+$sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombreM, horario.dia, usuario.nombre FROM asesoria, usuario, estatus, materia, horario WHERE username='$a'";
 
 		$consulta2=mysqli_query($connect,$sql2);
 		$arreglo2=mysqli_fetch_array($consulta2);
