@@ -1,5 +1,9 @@
 <?php
 	session_start(); /*Es la primer linea que debe tener en cuenta al momento de usar php*/
+include_once "../../conexion.php";
+
+
+
 	require ('conexion.php');
 	if (isset($_POST['Guardar'])&& isset($_POST['Guardar'])=="Solicitar") {
 		//$_SESSION['idAsesoria']=$_POST['idAsr'];
@@ -15,7 +19,7 @@
 <?php
 	require ('conexion.php');
 	
-	$query0 = "SELECT idMateria, nombre FROM materia ORDER BY nombre";
+	$query0 = "SELECT idMateria, nombreM FROM materia ORDER BY nombreM";
 	$resultado0=$mysqli0->query($query0);
 ?>
 <!DOCTYPE html>
@@ -70,12 +74,10 @@
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
             	<ul class="navbar-nav">
-                <li class="nav-item">
-                	<a class="nav-link" href="notificacionesal.html">Notificaciones</a>
-                </li>
+            
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" name="username" href="#" id="navbarDropdownMenuLink" role="button"
-                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@ </a>
+                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$username"?></a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                         <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 					</div> 
@@ -108,7 +110,7 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="solicitarAsesoria.php" tabindex="-1"aria-disabled="true">|   Solicitar asesoria   |</a>
+                                <a class="nav-link" href="#" tabindex="-1"aria-disabled="true">|   Solicitar asesoria   |</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="cancelaral.php" tabindex="-1" aria-disabled="true">|   Cancelar asesoria   |</a>
@@ -130,7 +132,7 @@
 						<select name="comboMateria" id="comboMateria" class="custom-select">
 							<option value="0">Selecciona materia
 							</option><?php while($row = $resultado0->fetch_assoc()) { ?>
-							<option value="<?php echo $row['idMateria']; ?>"><?php echo $row['nombre']; ?></option><?php } ?>
+							<option value="<?php echo $row['idMateria']; ?>"><?php echo $row['nombreM']; ?></option><?php } ?>
 						</select>
 						</div>
 
@@ -146,13 +148,13 @@
 						<div class="form-group col-md-5">
 						<label>Selecciona un profesor:</label>
 						<select name="comboProfesor" id="comboProfesor" class="custom-select">								
-							<td class="opcion" id="nomPro" name="nombre">
+							<td class="opcion" id="nombre" name="nombre">
 						</select>
 						</div>
 
 						<div class="col-md-7">
 						<label for="exampleFormControlTextarea1">Menciona el tema a tratar:</label><br>
-						<textarea type="text" class="texto" name="tema" id="tema" class="form-control" placeholder="Tema a tratar en asesoria" required rows="3"></textarea>
+						<textarea type="text" class="texto" name="tema" id="tema" class="form-control" placeholder="Tema de a asesoria" required rows="3"></textarea>
 					</div>
 
 					<div class="form-row">
