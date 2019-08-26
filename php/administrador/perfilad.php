@@ -27,7 +27,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
         $idUsuario=$arreglo[0];
         $username=$arreglo[2];
         $nombre=$arreglo[4];
-        $carrera=$arreglo[7];
+        $carrera=$arreglo[8];
 		
 ?>
 

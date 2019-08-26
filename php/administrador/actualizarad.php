@@ -1,3 +1,43 @@
+<?php
+include_once '../../conexion.php';
+session_start();
+
+$user=$_SESSION['tipo'];
+$a=$_SESSION['username'];
+
+$sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
+
+        $consulta=mysqli_query($connect,$sql);
+        $arreglo=mysqli_fetch_array($consulta);
+        $resultado=mysqli_query($connect,$sql);
+
+        
+        $idUsuario=$arreglo[0];
+        $username=$arreglo[2];
+        $nombre=$arreglo[4];
+        $carrera=$arreglo[7];
+		
+ $sql1="SELECT * FROM usuario WHERE idUsuario>1 AND idUsuario<1000 AND idTipoUsuario=2";
+        $consulta1=mysqli_query($connect,$sql1);
+        $arreglo=mysqli_fetch_array($consulta1);
+        $resultado1=mysqli_query($connect,$sql1);
+
+        $idUsuario=$arreglo[0];
+        $username=$arreglo[2];
+        $nombreP=$arreglo[5];
+        $carrera=$arreglo[7];
+
+
+        if(isset($_POST['btnBaja'])&& isset($_POST['btnBaja'])=="Baja")
+        {
+            $sql="DELETE FROM usuario WHERE idUsuario='$idUsuario'";
+            $resultado=mysqli_query($connect,$sql) or die(mysqli_error());
+        }
+
+
+
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -34,7 +74,7 @@
               
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@admin</a>
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$a"?></a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 
@@ -103,13 +143,14 @@
       </div>
     </div>
 
-    <div class="row home">
-      <div class="col-md-2">
-      </div>
-
-      <div class="col-md-8">
-
-        <style>
+  <div class="row home">  
+  <div class="col-md-12">
+  
+  <center><h2>Actualizar profesores</h2></center>
+  <br>
+  <center>
+  
+    <style>
           table {
             font-family: arial, sans-serif;
             border-collapse: collapse;
@@ -130,344 +171,57 @@
         </head>
 
 
+<form action="#" method="POST">
+       
 
-        <h2>Actualizar profesores</h2>
-
-        <table>
-          <tr>
-            <th>Profesor</th>
-            <th>Estado</th>
-
-          </tr>
-          <tr>
-            <td>Daniel Sustaita Cruces</td>
-            <td>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1"
-                  checked>
-                <label class="form-check-label" for="exampleRadios1">
-                  Contrato renovado
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios2"
-                  value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                  Contarto no renovado
-                </label>
-              </div>
-            </td>
-
-          </tr>
-          <tr>
-            <td>Gerardo Reyna Ibarra</td>
-            <td>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1"
-                  checked>
-                <label class="form-check-label" for="exampleRadios1">
-                  Contrato renovado
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios2"
-                  value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                  Contarto no renovado
-                </label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>Gerardo Parra Rodriguez</td>
-            <td>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1"
-                  checked>
-                <label class="form-check-label" for="exampleRadios1">
-                  Contrato renovado
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios2"
-                  value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                  Contarto no renovado
-                </label>
-              </div>
-            </td>
-
-          </tr>
-          <tr>
-            <td>Guilermo Hernandez Ojeda</td>
-            <td>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1"
-                  checked>
-                <label class="form-check-label" for="exampleRadios1">
-                  Contrato renovado
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios2"
-                  value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                  Contarto no renovado
-                </label>
-              </div>
-            </td>
-
-          </tr>
-          <tr>
-            <td>Gabriel barrón Rodriguez</td>
-            <td>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1"
-                  checked>
-                <label class="form-check-label" for="exampleRadios1">
-                  Contrato renovado
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios2"
-                  value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                  Contarto no renovado
-                </label>
-              </div>
-            </td>
-
-          </tr>
-          <tr>
-            <td>Ricardo Muro Gomez</td>
-            <td>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1"
-                  checked>
-                <label class="form-check-label" for="exampleRadios1">
-                  Contrato renovado
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios2"
-                  value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                  Contarto no renovado
-                </label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>José Refugio Rubio Hernández </td>
-            <td>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1"
-                  checked>
-                <label class="form-check-label" for="exampleRadios1">
-                  Contrato renovado
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios2"
-                  value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                  Contarto no renovado
-                </label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>Ricardo Muro </td>
-            <td>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1"
-                  checked>
-                <label class="form-check-label" for="exampleRadios1">
-                  Contrato renovado
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios2"
-                  value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                  Contarto no renovado
-                </label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>Daniel Eduardo Torrejon Rojel </td>
-            <td>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1"
-                  checked>
-                <label class="form-check-label" for="exampleRadios1">
-                  Contrato renovado
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios2"
-                  value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                  Contarto no renovado
-                </label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>Elsa Veronica Martinez Mejia</td>
-            <td>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1"
-                  checked>
-                <label class="form-check-label" for="exampleRadios1">
-                  Contrato renovado
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios2"
-                  value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                  Contarto no renovado
-                </label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>Pamela Villanueva Gaitan </td>
-            <td>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios1" value="option1"
-                  checked>
-                <label class="form-check-label" for="exampleRadios1">
-                  Contrato renovado
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="exampleRadios" id="exampleRadios2"
-                  value="option2">
-                <label class="form-check-label" for="exampleRadios2">
-                  Contarto no renovado
-                </label>
-              </div>
-            </td>
-          </tr>
-        </table>
-
-      </div>
-      <div class="col-md-2">
-      </div>
-
-
-      <div class="col-md-12 ">
-        <br>
-        <center>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-xl">Agregar
-            nuveo profesor</button>
-
-          <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog"
-            aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-              <div class="modal-content">
-                <div class="col-md-12">
-                  <h2 class="recuperar">Registro de nuevo profesor</h2>
-
-                </div>
-                <form class="needs-validation" novalidate>
-                  <div class="form-row">
-                    <div class="col-md-3 mb-3">
-                      <label for="validationCustom01">Nombre(s)</label>
-                      <input type="text" class="form-control" id="validationCustom01" placeholder="Nombre(s)" required>
-                      <div class="valid-feedback">
-                        Looks good!
-                      </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="validationCustom02">Apellido Paterno</label>
-                      <input type="text" class="form-control" id="validationCustom02" placeholder="Apellido" required>
-                      <div class="valid-feedback">
-                        Looks good!
-                      </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="validationCustom02">Apellido Materno</label>
-                      <input type="text" class="form-control" id="validationCustom02" placeholder="Apellido" required>
-                      <div class="valid-feedback">
-                        Looks good!
-                      </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label for="validationCustomUsername">Número de empleado</label>
-                      <div class="input-group">
-                        <div class="input-group-prepend">
-                          <input type="text" class="form-control" id="validationCustomUsername" placeholder="Número"
-                            aria-describedby="inputGroupPrepend" required>
-                          <div class="invalid-feedback">
-                            Please choose a username.
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="modal-footer">
-
-                      <button data-dismiss="modal" type="button" class="btn btn-primary">Guardar</button>
-                    </div>
-
-                  </div>
-              </div>
-            </div>
-          </div>
-        </center>
-      </div>
+          
+     
+    <center> <table role="table>
+  <thead role="rowgroup">
+    <tr role="row">
+      <th role="columnheader">Número de empleado</th>
+      <th role="columnheader">Nombre</th>
+      <th role="columnheader">Baja</th>
+   
+    </tr>
+  </thead>
+  <tbody role="rowgroup">
+  <?php
+	while ($row=mysqli_fetch_array($resultado)) {
+	?>
+    <tr role="row">
+            
+            <td><p  id="idUsuario" name="idUsuario" ><?php echo "$idUsuario"?></p></td>
+            <td><p  id="nombre" name="nombre" ><?php echo "$nombreP"?></p></td>
+            <td><input type="submit" value="Baja" name="btnBaja" id="btnBaja"></td>
+    </tr>
+   
+    <?php
+     }
     
+    ?>
+    
+    
+    
+   
+  </tbody>
+</table></center>
+</form>  </center>      
+<br>
+<br>
+<form action="registrop.php" method="GET">
+<center><input type="submit" class="btn btn-primary" value="Registrar nuevo profesor"></center>
+</form>
 
 
-
-
-
-    <div class="col-md-12 ">
-      <center>
-        <!-- Button trigger modal -->
-        <br>
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-          Guardar cambios
-        </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModalCenter" tabindex="0" role="dialog"
-          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalCenterTitle">Aviso</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                Los profesores han sido actualizados..
-              </div>
-              <div class="modal-footer">
-
-                <button data-dismiss="modal" type="button" class="btn btn-primary">Aceptar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </center>
     </div>
-  </div>
-
   
 
 
 
 
 
-
-
-
+</div>
   <!--seccion pie de página-->
   <div class="row">
     <div class=col-md-12>
@@ -478,7 +232,7 @@
     </div>
 
   </div>
-  </div>
+ </div>
 
 
 

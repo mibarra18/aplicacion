@@ -57,25 +57,20 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
 
         <div class="row">
             <div class="col-md-7">
-
             </div>
 
             <div class="col-md-4">
-
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link" href="notificacionesal.html">Notificaciones</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" name="username" href="#" id="navbarDropdownMenuLink" role="button"
+                                <a class="nav-link dropdown-toggle" name="username" href="perfilal.php" id="navbarDropdownMenuLink" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$username"?></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
-
                                 </div> 
                             </li>
                         </ul>
@@ -109,7 +104,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
             <div class="col-md-12">
 
                 <nav class="navbar navbar-expand-lg navbar-light ">
-                    <a class="navbar-brand" href="#">|   Inicio   |</a>
+                    <a class="navbar-brand" href="perfilal.php">|   Inicio   |</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

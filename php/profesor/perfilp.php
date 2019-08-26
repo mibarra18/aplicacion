@@ -26,8 +26,8 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
         
         $idUsuario=$arreglo[0];
         $username=$arreglo[2];
-        $nombre=$arreglo[4];
-        $carrera=$arreglo[7];
+        $nombreP=$arreglo[5];
+        $carrera=$arreglo[8];
 
 		
 ?>
@@ -142,7 +142,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
              <br>
              <br>
             <p>Nombre del profesor:</p> 
-            <input type="text" readonly="readonly" class="form-control" name="nombre" id="Nombre" value="<?php echo "$nombre"?>"  />
+            <input type="text" readonly="readonly" class="form-control" name="nombre" id="Nombre" value="<?php echo "$nombreP"?>"  />
             <p>Área:</p>
             <input type="text" class="form-control" id="validationCustom01" readonly="readonly" value="<?php echo "$carrera"?>"/>
             <br>

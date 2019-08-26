@@ -1,3 +1,25 @@
+<?php
+include_once '../../conexion.php';
+session_start();
+
+
+$user=$_SESSION['tipo'];
+$a=$_SESSION['username'];
+
+$sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
+
+        $consulta=mysqli_query($connect,$sql);
+        $arreglo=mysqli_fetch_array($consulta);
+        $resultado=mysqli_query($connect,$sql);
+
+        
+        $idUsuario=$arreglo[0];
+        $username=$arreglo[2];
+        $nombre=$arreglo[4];
+        $carrera=$arreglo[7];
+		
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -34,7 +56,7 @@
                             
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@admin</a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$username"?></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 
@@ -105,165 +127,14 @@
 
 
         <div class="row home">
-           
-                
-           
-            <div class="col-md-4">
-            
-            
-                </br>
-                </br>
-            
-                </br>
-                </br>
-                </br>
-            </div>
-            <div class="col-md-4">
-                <h3>  Reporte de Asesorías</h3> 
-                </br>
-            
-
-                <select class="custom-select">
-                    <option selected>Profesor</option>
-                    <option value="1">Anzo Vázquez David Mokhtar</option>
-                    <option value="2">Rubio Hernández J.Refugio</option>
-                    <option value="3">Barrón Rodrguez Gabriel</option>
-                    <option value="4">Parra Rodríguez Gerardo</option>
+        <div class="col-md-12">
+           <center><h2>Ver reporte de Asesorias</h2></center>
+           <br>
+           <center><input type="button" value="Ver reporte"class="btn btn-secondary" onclick="location.href='pdf3/convertidorProfesor.php'"></center>
 
 
-                </select>
-                </br>
-                </br>
-                
-                </br>
-                </br>
-                </br>
-            </div>
-            <div class="col-md-4">
-    
-                        
-                </br>
-                </br>
-                 
-                </br>
-                </br>
-                </br>
-            </div>                                                                 
-        <div class="row ">
-                <div class="col-md-4">
-                        <div class="calendario">
-                                <form>
-                                    Inicia en:
-                                    <input type="date" name="bday">
-                                </form>
-                            </div>
-                </div>
-                <div class="col-md-4">
-    
-                        
-                    </br>
-                    </br>
-                     
-                    </br>
-                    </br>
-                    </br>
-                </div>
-    
-                <div class="col-md-4">
-                        <div class="calendario">
-                                <form>
-                                    Termina en:
-                                    <input type="date" name="bday">
-                                </form>
-                            </div>
-                </div>
-    
-
-
-
-
-            <div class="row ">
-                <div class="col-md-12">
-                    <form>
-                        <div class="row">
-
-                            <div class="col-md-1">
-                                "#"
-                            </div>
-                            <div class="col-md-2">
-                                Grupo
-                            </div>
-                            <div class="col-md-3">
-                                Num. Asesoría
-                            </div>
-                            <div class="col-md-6">
-                                Comentario
-                            </div>
-                        </div>
-                        <div class="row">
-
-                            <div class="col-md-1">
-                                <input type="text" class="form-control" placeholder="1">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="GIR0131">
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" placeholder="4">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control"
-                                    placeholder="El grupo GIR0131 asistio 4 veces a asesoría donde se trataron temas sobre Integradora.">
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-
-                            <div class="col-md-1">
-                                <input type="text" class="form-control" placeholder="2">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="GIR0132">
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" placeholder="10">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control"
-                                    placeholder="El grupo GIR0132 asistio 10 veces a asesoría donde se trataron temas sobre Cálculo.">
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-1">
-                                <input type="text" class="form-control" placeholder="3">
-                            </div>
-                            <div class="col-md-2">
-                                <input type="text" class="form-control" placeholder="GDS032">
-                            </div>
-                            <div class="col-md-3">
-                                <input type="text" class="form-control" placeholder="8">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="text" class="form-control"
-                                    placeholder="El grupo GDS032 asistio 8 veces a asesoría donde se trataron temas sobre Sistemas Electricos.">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
-            </br>
+           </div>        
         </div>
-    </div>
         <!--seccion pie de página-->
         <div class="row">
             <div class=col-md-12>

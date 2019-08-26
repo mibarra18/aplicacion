@@ -1,3 +1,25 @@
+<?php
+include_once '../../conexion.php';
+session_start();
+
+
+$user=$_SESSION['tipo'];
+$a=$_SESSION['username'];
+
+$sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
+
+        $consulta=mysqli_query($connect,$sql);
+        $arreglo=mysqli_fetch_array($consulta);
+        $resultado=mysqli_query($connect,$sql);
+
+        
+        $idUsuario=$arreglo[0];
+        $username=$arreglo[2];
+        $nombre=$arreglo[4];
+        $carrera=$arreglo[7];
+		
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -11,7 +33,7 @@
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/estilo.css">
 
-    <title>Actualizar</title>
+    <title>Reporte Horario</title>
 
 
 
@@ -34,7 +56,7 @@
                             
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@admin</a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$username"?></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 
@@ -71,7 +93,7 @@
             <div class="col-md-12">
 
                 <nav class="navbar navbar-expand-lg navbar-light ">
-                    <a class="navbar-brand" href="perfilad.html">| Inicio |</a>
+                    <a class="navbar-brand" href="perfilad.php">|   Inicio   |</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -81,13 +103,12 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="actualizarad.php" tabindex="-1" aria-disabled="true">|
-                                    Actualizar
-                                    profesores |</a>
+                                <a class="nav-link" href="actualizarad.php" tabindex="-1" aria-disabled="true">|   Actualizar
+                                    profesores   |</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">| Reportes |</a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">|   Reportes   |</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="reporteasesorias.php">Reporte de Asesorias</a>
                                     <a class="dropdown-item" href="#">Reporte de Horario</a>
@@ -95,9 +116,8 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="actualizarmad.php" tabindex="-1" aria-disabled="true">|
-                                    Actualizar materias |</a>
-                            </li>
+                              <a class="nav-link" href="actualizarmad.php" tabindex="-1" aria-disabled="true">|   Actualizar materias   |</a>
+                          </li>
                         </ul>
                     </div>
                 </nav>
@@ -107,125 +127,26 @@
 
 
         <div class="row home">
-            <div class="col-md-12">
+        <div class="col-md-12">
+           <center><h2>Ver reporte de horario</h2></center>
+           <br>
+           <center><input type="button" value="Ver reporte"class="btn btn-secondary" onclick="location.href='pdf3/convertidorHorario.php'"></center>
 
 
-                <h2> Reporte de Horario</h2>
-                </br>
-
-            </div>
-            </br>
-            </br>
-
-
-            <center>
-            <div class="row">
-
-                <div class="col-md-6">
-                    Nombre de Profesor
-                </div>
-                <div class="col-md-6">
-                    Horario
-                </div>
-            </div>
-
-
-            <div class="row">
-
-
-
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Gabriel Barron Rodriguez">
-                </div>
-                <br>
-
-
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Martes y Jueves 4:00 a 6:00 pm.">
-                </div>
+           </div>        
+        </div>
+        <!--seccion pie de página-->
+        <div class="row">
+            <div class=col-md-12>
+                <footer class="pie">
+                    Derechos reservados 2019
+                </footer>
 
             </div>
-
-            <br>
-            <div class="row">
-
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="J. Refugio Rubio Hernández">
-                </div>
-
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Miercoles y Jueves 4:00 a 6:00 pm.">
-                </div>
-            </div>
-            <br>
-
-            <div class="row">
-
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Gerardo Parra Rodriguez">
-                </div>
-
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Martes y Jueves 4:00 a 6:00 pm.">
-                </div>
-            </div>
-            <br>
-            <div class="row">
-
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="David Mokhtar Anzo">
-                </div>
-                <br>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Martes y Miercoles 4:00 a 6:00 pm.">
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Pamela Villanueva Gaytan">
-                </div>
-                <br>
-                <div class="col-md-6">
-                    <input type="text" class="form-control" placeholder="Martes y  4:00 a 6:00 pm.">
-                </div>
-            </div>
-
-        </div></center>
-
-
-
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
-        </br>
-
-    
-    <!--seccion pie de página-->
-    <div class="row">
-        <div class=col-md-12>
-            <footer class="pie">
-                Derechos reservados 2019
-            </footer>
 
         </div>
 
+
+
+
     </div>
-
-    </div>
-
-
-
-
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="../../js/jquery-3.4.1.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
-
-</body>
-
-</html>

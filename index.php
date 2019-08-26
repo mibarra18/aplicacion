@@ -51,7 +51,7 @@ if(isset($_GET['salir'])){
 
         if($row == true){
             
-            $tipo = $row[5];
+            $tipo = $row[6];
             $_SESSION['tipo'] = $tipo;
            
             switch ($_SESSION['tipo']) {
@@ -122,7 +122,7 @@ if(isset($_GET['salir'])){
 
         <!--seccion barra de contenido-->
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <section class="ingresar">
 
                     <h3 class="ini">Iniciar sesion</h3>
@@ -156,7 +156,7 @@ if(isset($_GET['salir'])){
                 </section>
 
             </div>
-            <div class="col-md-9">
+            <div class="col-md-8">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                         <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

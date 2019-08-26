@@ -1,3 +1,61 @@
+<?php
+session_start();
+include_once "../../conexion.php";
+
+
+//Archivo de conexión a la base de datos.
+
+$user=$_SESSION['tipo'];
+$a=$_SESSION['username'];
+
+
+
+$sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
+
+        $consulta=mysqli_query($connect,$sql);
+        $arreglo=mysqli_fetch_array($consulta);
+        $resultado=mysqli_query($connect,$sql);
+
+        
+        $idUsuario=$arreglo[0];
+        $username=$arreglo[2];
+        $nombre=$arreglo[4];
+        $carrera=$arreglo[7];
+
+
+
+
+$sql2="SELECT asesoria.idAsesoria,  asesoria.tema, materia.nombreM, horario.dia, usuario.nombre, lugar.nomLug, asistencia.nomAsi FROM asesoria, usuario, lugar, asistencia, materia, horario WHERE  username='$a'";
+
+		$consulta2=mysqli_query($connect,$sql2);
+		$arreglo2=mysqli_fetch_array($consulta2);
+		$resultado2=mysqli_query($connect,$sql2);
+
+		$idAsesoria=$arreglo2[0];
+		$tema=$arreglo2[1];
+		$nombreM=$arreglo2[2];
+        $dia=$arreglo2[3];
+        $nombre=$arreglo2[4];
+        $nomLug=$arreglo2[5];
+        $nomAsi=$arreglo2[6];
+
+        if(isset($_POST['btnAsistio'])&& isset($_POST['btnAsistio'])=="Asistio")
+        {
+            $sql1="UPDATE asesoria SET idAsistencia=1 WHERE idAsesoria='$idAsesoria'";
+            $resultado1=mysqli_query($connect,$sql1) or die(mysqli_error());
+        }
+
+        if(isset($_POST['btnNoAsistio'])&& isset($_POST['btnNoAsistio'])=="No Asistio")
+        {
+            $sql1="UPDATE asesoria SET idAsistencia=2 WHERE idAsesoria='$idAsesoria'";
+            $resultado1=mysqli_query($connect,$sql1) or die(mysqli_error());
+        }
+
+
+        
+?>
+
+
 <!doctype html>
 <html lang="es">
 
@@ -36,7 +94,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@sustaita</a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$username"?></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 
@@ -101,139 +159,71 @@
         </div>
 
         <div class="row home">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-4" style="color: blue ">
-                       <center><h4>Nombre</h4></center> 
-                    </div>
-                    <div class="col-md-3" style="color: blue ">
-                        <center><h4>Asistencia</h4></center>
-                    </div>
-                    <div class="col-md-5" style="color: blue ">
-                        <center><h4>Comentario</h4></center>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-12">
-                <br>
-                <form>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="Concepción Guadalupe González Barrientos">
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">Asistío</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox2">No asistío</label>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="Solo se presentó media sesion.">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="col-md-12">
-                <br>
-                <form>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="Marco Antonio Ibarra Mendoza">
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">Asistío</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox2">No asistío</label>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="Se cumplío con los temas acorados en la asesoría.">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="col-md-12">
-                <br>
-                <form>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="Iris Adriana Marínez Meléndez">
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">Asistío</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox2">No asistío</label>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="Se revisarón nuevamente los temas vistos en clase.">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="col-md-12">
-                <br>
-                <form>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="Lucía Fatíma Hernández Landeros.">
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">Asistío</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox2">No asistío</label>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="Faltarón algunos temas por ver y se realizará otra asesoría.">
-                        </div>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="col-md-12">
-                <br>
-                <form>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <input type="text" class="form-control" placeholder="Carlos Manuel Contreras Ruiz.">
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">Asistío</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox2">No asistío</label>
-                            </div>
-                        </div>
-                        <div class="col-md-5">
-                            <input type="text" class="form-control" placeholder="No se presento a la asersoria acordada.">
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <style>
+          table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+          }
+
+          td,
+          th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+          }
+
+          tr:nth-child(even) {
+            background-color: #dddddd;
+          }
+        </style>
+        </head>
+
+
+
+        <center><h2>Lista de Asistencia</h2></center>
+
+          
+     
+     <table role="table">
+  <thead role="rowgroup">
+    <tr role="row">
+      <th role="columnheader">Número</th>
+      <th role="columnheader">Tema</th>
+      <th role="columnheader">Materia</th>
+      <th role="columnheader">Horario</th>
+      <th role="columnheader">Alumno</th>
+      <th role="columnheader">Lugar</th>
+      <th role="columnheader">Estatus asistencia</th>
+      <th role="columnheader">Confirmar asistencia</th>
+   
+    </tr>
+  </thead>
+  <tbody role="rowgroup">
+    <tr role="row">
+            <td><p  id="idAsesoria" name="idAsesoria" ><?php echo "$idAsesoria"?></p></td>
+            <td><p  id="tema" name="tema" ><?php echo "$tema"?></p></td>
+            <td><p  id="nombreM" name="nombreM" ><?php echo "$nombreM"?></p></td>
+            <td><p  id="dia" name="dia" ><?php echo "$dia"?></p></td>
+            <td><p  id="nombre" name="nombre" ><?php echo "$nombre"?></p></td></td>
+            <td><p  id="nomLug" name="nomLug" ><?php echo "$nomLug"?></p></td></td>
+            <td><p  id="nomAsi" name="nomAsi" ><?php echo "$nomAsi"?></p></td></td>
+            <form action="#" method="POST">
+            <td>
+            <input type="submit" value="Asistio" name="btnAsistio" id="btnAsistio">
+            <input type="submit" value="No Asistio" name="btnNoAsistio" id="btnNoAsistio"></td>
+            </form>    
+    </tr>
+    
+    
+    
+    
+   
+  </tbody>
+</table>
+
+</div>
+        
 
 
 

@@ -1,3 +1,77 @@
+<?php
+session_start();
+include_once "../../conexion.php";
+
+
+//Archivo de conexión a la base de datos.
+
+$user=$_SESSION['tipo'];
+$a=$_SESSION['username'];
+
+
+
+$sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
+
+        $consulta=mysqli_query($connect,$sql);
+        $arreglo=mysqli_fetch_array($consulta);
+        $resultado=mysqli_query($connect,$sql);
+
+        
+        $idUsuario=$arreglo[0];
+        $username=$arreglo[2];
+        $nombre=$arreglo[4];
+        $carrera=$arreglo[7];
+
+
+
+
+$sql2="SELECT asesoria.idAsesoria,  asesoria.tema, estatus.estatus, materia.nombreM, horario.dia, usuario.nombre, usuario.idUsuario, asesoria.idLugar FROM asesoria, usuario, estatus, materia, horario WHERE asesoria.idEstatus = estatus.idEstatus AND username='$a'";
+
+		$consulta2=mysqli_query($connect,$sql2);
+		$arreglo2=mysqli_fetch_array($consulta2);
+		$resultado2=mysqli_query($connect,$sql2);
+
+		$idAsesoria=$arreglo2[0];
+		$tema=$arreglo2[1];
+        $estatus=$arreglo2[2];
+		$nombreM=$arreglo2[3];
+        $dia=$arreglo2[4];
+        $nombre=$arreglo2[5];
+        $nombre=$arreglo2[6];
+        
+        if(isset($_POST['btnCancelar'])&& isset($_POST['btnCancelar'])=="Cancelar")
+        {
+            $sql="UPDATE asesoria SET idEstatus=3 WHERE idAsesoria='$idAsesoria'";
+            $resultado=mysqli_query($connect,$sql) or die(mysqli_error());
+        }
+
+
+        if(isset($_POST['btnAceptar'])&& isset($_POST['btnAceptar'])=="Aceptar")
+        {
+            $sql1="UPDATE asesoria SET idEstatus=2 WHERE idEstatus=1";
+            $resultado1=mysqli_query($connect,$sql1) or die(mysqli_error());
+        }
+
+        if(isset($_POST['btnCub'])&& isset($_POST['btnCub'])=="Cubiculo")
+        {
+            $sql2="UPDATE asesoria SET idLugar=1 WHERE idAsesoria='$idAsesoria'";
+            $resultado2=mysqli_query($connect,$sql2) or die(mysqli_error());
+        }
+
+        if(isset($_POST['btnAula'])&& isset($_POST['btnAula'])=="Aula")
+        {
+            $sql2="UPDATE asesoria SET idLugar=2 WHERE idAsesoria='$idAsesoria'";
+            $resultado2=mysqli_query($connect,$sql2) or die(mysqli_error());
+        }
+
+        if(isset($_POST['btnLab'])&& isset($_POST['btnLab'])=="Laboratorio")
+        {
+            $sql2="UPDATE asesoria SET idLugar=3 WHERE idAsesoria='$idAsesoria'";
+            $resultado2=mysqli_query($connect,$sql2) or die(mysqli_error());
+        }
+?>
+
+
 <!doctype html>
 <html lang="es">
 
@@ -36,7 +110,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@sustaita</a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$a"?></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 
@@ -100,102 +174,79 @@
         </div>
 
         <div class="row contenido">
-        <div class="col-md-12">
-            <h2>Cancelar asesoría</h2>
-        </div>
-        <div class="col-md-12">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                <label class="form-check-label" for="inlineCheckbox1">Grupo Obligatorio</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                <label class="form-check-label" for="inlineCheckbox2">Clase Extra</label>
-            </div>
-        </div>
-            <div class="col-md-12">
-                    <br></br>
-                <select class="custom-select">
-                    <option selected>Asesorías agendadas</option>
-                    <option value="1">Formación Sociocultural III - GIR0131 - Lunes 4:00p.m. a 6:00p.m.</option>
-                    <option value="2">Sistemas Operativos - GIR0132 - Martes 5:00p.m. a 6:00p.m.</option>
-                    <option value="3">Conmutación de Redes de Datos - GDS0131 - Miércoles 4:00p.m. a 5:00p.m.</option>
-                    <option value="4">Aplicaciones Web - GDS0132 - Jueves 4:00p.m. a 6:00p.m.</option>
-                    <option value="5">Integradora I - GDS0133 - Viernes 4:00p.m. a 5:00p.m.</option>
-                    <option value="6">Cálculo Diferencial - GDS0134 - Sábado 8:00a.m. a 10:00a.m.</option>
-                    <option value="7">Inglés III - GIR0133 - Lunes 4:00p.m. a 6:00p.m.</option>
-                    <option value="8">Infraestructura de Redes de Datos - GIR0134 - Martes 5:00p.m. a 6:00p.m.</option>
-                </select>
-               
-            </div>
+        <style>
+          table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+          }
 
+          td,
+          th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+          }
+
+          tr:nth-child(even) {
+            background-color: #dddddd;
+          }
+        </style>
+        </head>
+
+
+
+        <center><h2>Cancelar asesorias</h2></center>
+
+          
+     
+     <table role="table">
+  <thead role="rowgroup">
+    <tr role="row">
+      <th role="columnheader">Número</th>
+      <th role="columnheader">Tema</th>
+      <th role="columnheader">Estatus</th>
+      <th role="columnheader">Materia</th>
+      <th role="columnheader">Horario</th>
+      <th role="columnheader">Alumno</th>
+      <th role="columnheader">Lugar</th>
+      <th role="columnheader">Aceptar</th>
+      <th role="columnheader">Cancelar</th>
+   
+    </tr>
+  </thead>
+  <tbody role="rowgroup">
+    <tr role="row">
+            <td><p  id="idAsesoria" name="idAsesoria" ><?php echo "$idAsesoria"?></p></td>
+            <td><p  id="tema" name="tema" ><?php echo "$tema"?></p></td>
+            <td><p  id="estatus" name="estatus" ><?php echo "$estatus"?></p></td>
+            <td><p  id="nombreM" name="nombreM" ><?php echo "$nombreM"?></p></td>
+            <td><p  id="dia" name="dia" ><?php echo "$dia"?></p></td>
+            <td><p  id="nombre" name="nombre" ><?php echo "$nombre"?></p></td>
             
-        
-        <div class="col-md-12">
+            <form action="#" method="POST">
+            <td><input type="submit" value="Cubiculo" name="btnCub" id="btnCub">
+            <input type="submit" value="Aula" name="btnAula" id="btnAula">
+            <input type="submit" value="Laboratorio" name="btnLab" id="btnLab">
+            
+            </td>
+            </form>
+            <form action="#" method="POST">
+            <td><input type="submit" value="Aceptar" name="btnAceptar" id="btnAceptar"></td>
+            </form>
+            <form action="#" method="POST">
+            <td><input type="submit" value="Cancelar" name="btnCancelar" id="btnCancelar"></td>
+            </form>    
+    </tr>
+    
+    
+    
+    
+   
+  </tbody>
+</table>
 
-            <div class="modal" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>Modal body text goes here.</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tema">
-                    <label for="exampleFormControlTextarea1" >Motivos de cancelación:</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Describe el tema a tratar en asesorías"></textarea>
-            </div>
-            <!--<div class="tema"> 
-                <input class="form-control" type="text" placeholder="Tema a tratar">  
-            </div>-->
- 
-            <div class="col-md-12 ">
-                <center>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                        Cancelar asesoria
-                    </button>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="0" role="dialog"
-                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalCenterTitle">Aviso</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    La asesoria a sido exitosamente cancelada.
-                                    Se le informara de esta modificación al tutor de grupo y a dichos alumnos de este.
-                                </div>
-                                <div class="modal-footer">
-                                        
-                                    <button data-dismiss="modal" type="button" class="btn btn-primary">Aceptar</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </center>
-            </div>
-
-        </div>
-
-    </div>
+</div>
         <!--seccion pie de página-->
         <div class="row">
             <div class=col-md-12>

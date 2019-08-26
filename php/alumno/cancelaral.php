@@ -1,13 +1,16 @@
 <?php
 session_start();
 include_once "../../conexion.php";
-
+include_once "conexion.php";
 
 //Archivo de conexión a la base de datos.
 
 $usr=$_SESSION['tipo'];
 $a=$_SESSION['username'];
-$sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombreM, horario.dia, usuario.nombre FROM asesoria, usuario, estatus, materia, horario WHERE username='$a'";
+
+
+
+$sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombreM, horario.dia, usuario.nombreP, lugar.nomLug, usuario.idUsuario FROM asesoria, usuario, estatus, materia, horario, lugar WHERE asesoria.idEstatus = estatus.idEstatus AND username='$a'";
 
 		$consulta2=mysqli_query($connect,$sql2);
 		$arreglo2=mysqli_fetch_array($consulta2);
@@ -18,7 +21,15 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
         $estatus=$arreglo2[2];
 		$nombreM=$arreglo2[3];
         $dia=$arreglo2[4];
-        $nombre=$arreglo2[5];
+        $nombreP=$arreglo2[5];
+        $nomLug=$arreglo2[6];
+
+        if(isset($_POST['btnCancelar'])&& isset($_POST['btnCancelar'])=="Cancelar")
+        {
+            $sql="UPDATE asesoria SET idEstatus=3 WHERE idAsesoria='$idAsesoria'";
+            $resultado=mysqli_query($connect,$sql) or die(mysqli_error());
+        }
+
 
 ?>
 
@@ -51,14 +62,14 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
             <div class="col-md-4">
 
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-
-                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav">
-                            
+                            <li class="nav-item">
+                                <a class="nav-link" href="notificacionesal.html">Notificaciones</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$username"?></a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$a"?></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 
@@ -140,7 +151,7 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
         </head>
 
 
-
+<form action="#" method="POST"
         <center><h2>Cancelar asesorias</h2></center>
 
           
@@ -154,27 +165,37 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
       <th role="columnheader">Materia</th>
       <th role="columnheader">Horario</th>
       <th role="columnheader">Profesor</th>
+      <th role="columnheader">Lugar</th>
       <th role="columnheader">Cancelar</th>
    
     </tr>
   </thead>
   <tbody role="rowgroup">
+  <?php
+	
+	?>
     <tr role="row">
             <td><p  id="idAsesoria" name="idAsesoria" ><?php echo "$idAsesoria"?></p></td>
             <td><p  id="tema" name="tema" ><?php echo "$tema"?></p></td>
             <td><p  id="estatus" name="estatus" ><?php echo "$estatus"?></p></td>
             <td><p  id="nombreM" name="nombreM" ><?php echo "$nombreM"?></p></td>
             <td><p  id="dia" name="dia" ><?php echo "$dia"?></p></td>
-            <td><p  id="nombre" name="nombre" ><?php echo "$nombre"?></p></td>
+            <td><p  id="nombreP" name="nombreP" ><?php echo "$nombreP"?></p></td>
+            <td><p  id="nomLug" name="nomLug" ><?php echo "$nomLug"?></p></td>
             <td><input type="submit" value="Cancelar" name="btnCancelar" id="btnCancelar"></td>
     </tr>
+   
+    <?php
     
+    
+    ?>
     
     
     
    
   </tbody>
-</table>    
+</table>
+</form>    
 
     </div>
         <!--seccion pie de página-->
@@ -204,3 +225,8 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
 </body>
 
 </html>
+
+
+
+
+
