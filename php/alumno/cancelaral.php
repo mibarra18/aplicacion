@@ -173,7 +173,7 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
   <tbody role="rowgroup">
   <?php
 	
-    while ($row=mysqli_fetch_array($resultado2)) {
+    
 	?>
     <tr role="row">
             <td><p  id="idAsesoria" name="idAsesoria" ><?php echo "$idAsesoria"?></p></td>
@@ -187,7 +187,7 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
     </tr>
    
     <?php
-    }
+    
 
     ?>
     
@@ -226,8 +226,3 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
 </body>
 
 </html>
-
-
-
-
-

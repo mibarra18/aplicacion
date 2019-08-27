@@ -178,21 +178,25 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
      
     <center> <table role="table>
   <thead role="rowgroup">
+          
     <tr role="row">
-      <th role="columnheader">Número de empleado</th>
-      <th role="columnheader">Nombre</th>
-      <th role="columnheader">Baja</th>
+      <td role="columnheader">Número de empleado</td>
+      <td role="columnheader">Nombre</td>
+      <td role="columnheader">Baja</td>
    
     </tr>
   </thead>
   <tbody role="rowgroup">
   <?php
-	while ($row=mysqli_fetch_array($resultado)) {
+
+  $sql2="SELECT * from usuario WHERE idTipoUsuario=2";
+  $result=mysqli_query($connect,$sql2);
+	while ($row=mysqli_fetch_array($result)) {
 	?>
     <tr role="row">
             
-            <td><p  id="idUsuario" name="idUsuario" ><?php echo "$idUsuario"?></p></td>
-            <td><p  id="nombre" name="nombre" ><?php echo "$nombreP"?></p></td>
+            <td><p  id="idUsuario" name="idUsuario" ><?php echo $row['idUsuario']?></p></td>
+            <td><p  id="nombre" name="nombre" ><?php echo $row['nombreP']?></p></td>
             <td><input type="submit" value="Baja" name="btnBaja" id="btnBaja"></td>
     </tr>
    

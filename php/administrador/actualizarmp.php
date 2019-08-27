@@ -1,34 +1,45 @@
 <?php
-include_once '../../conexion.php';
-session_start();
+/*Requerir conexion con la BD*/
+    $host = "localhost";
+    $usuario ="root";
+    $clave ="";
+    $db = "asesoria";
+   
+   $conexion = new mysqli($host, $usuario, $clave, $db);
 
-if (!isset($_SESSION['tipo'])){
+   if($conexion->connect_error){
+     die("Conexion fallida: " . $conexion->connect_error);
+   }
 
-    header('location: ../../index.php');
-}else{
+  $message = '';
 
-    if($_SESSION['tipo'] != 3){
+  if (isset($_POST['idMateria']) && isset($_POST['nombreM'])){
+    /*Vincular parametros*/
+    $idMateria = $_POST ['idMateria'];
+    $nombreM = $_POST ['nombreM'];
 
-        header('location: ../../index.php');
+    
+    /*Agregar datos a la BD*/
+    $sql1 = "INSERT INTO materia (idMateria, nombreM) 
+    VALUES ('$idMateria', '$nombreM')"; 
+    
+    /*Ejecutar consulta para evitar usuarios repetidos*/
+
+    $verificar_usuario = mysqli_query($conexion, "SELECT * FROM materia WHERE idMateria = '$idMateria'");
+    if (mysqli_num_rows($verificar_usuario) > 0) {
+      $verificar_usuario = "Una materia ya esta registrada con esos datos";
+
+      include_once 'actualizarmad.php';
     }
+
+  if ($conexion->query($sql1) === true){
+    $message = 'Registro exitoso!!';
+} else{
+    die ("Error al registrar la materia" . $conexion->error);
 }
+$conexion->close();
 
-
-$user=$_SESSION['tipo'];
-$a=$_SESSION['username'];
-
-$sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
-
-        $consulta=mysqli_query($connect,$sql);
-        $arreglo=mysqli_fetch_array($consulta);
-        $resultado=mysqli_query($connect,$sql);
-
-        
-        $idUsuario=$arreglo[0];
-        $username=$arreglo[2];
-        $nombre=$arreglo[4];
-        $carrera=$arreglo[8];
-		
+}
 ?>
 
 <!doctype html>
@@ -44,7 +55,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
     <link rel="stylesheet" href="../../css/estilo.css">
 
-    <title>Asesorias UTNG</title>
+    <title>Actualizar</title>
 
 
 
@@ -59,7 +70,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
 
             <div class="col-md-4">
 
-                <nav class="navbar navbar-expand-lg navbar-light ">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -67,7 +78,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
                             
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$a"?></a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@admin</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 
@@ -104,7 +115,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
             <div class="col-md-12">
 
                 <nav class="navbar navbar-expand-lg navbar-light ">
-                    <a class="navbar-brand" href="#">|   Inicio   |</a>
+                    <a class="navbar-brand" href="perfilad.php">| Inicio |</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -114,11 +125,13 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a class="nav-link" href="actualizarad.php" tabindex="-1"aria-disabled="true">|   Actualizar profesores   |</a>
+                                <a class="nav-link" href="actualizarad.php" tabindex="-1" aria-disabled="true">|
+                                    Actualizar
+                                    profesores |</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">|   Reportes   |</a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">| Reportes |</a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="reporteasesorias.php">Reporte de Asesorias</a>
                                     <a class="dropdown-item" href="reportehorario.php">Reporte de Horario</a>
@@ -126,9 +139,13 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="actualizarmad.php" tabindex="-1" aria-disabled="true">|   Actualizar materias   |</a>
+                                <a class="nav-link" href="actualizarmad.php" tabindex="-1" aria-disabled="true">|
+                                    Actualizar materias |</a>
                             </li>
-                          
+                            <li class="nav-item">
+                                <a class="nav-link" href="actualizarmp.php" tabindex="-1" aria-disabled="true">|
+                                    Actualizar materias a profesor |</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -137,54 +154,31 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
         </div>
 
         <div class="row home">
-            <div class="col-md-1">
-            </div>
-           
-        <div class="col-md-7">
-            <h2>Datos del administrador</h2>
-            <br>
-            <br>
-            <p>Nombre del administrador:</p> 
-            <input type="text" readonly="readonly" class="form-control" name="nombre" id="Nombre" value="<?php echo "$nombre"?>"  />
-            <br>
-            <p>Área:</p>
-            <input type="text" class="form-control" id="validationCustom01" readonly="readonly"  value="<?php echo "$carrera"?>">
-            <br>
-        </div>
+      <div class="col-md-12">
+        <h2 class="recuperar">Registro de nueva Materia</h2>
+
         
-        <div class="col-md-4">
+         
+        </form>
 
-            <center>
-                <img src="../../imagenes/profe.png" width="200px" class="img-fluid" alt="Responsive image">
-                <div class="col-md-7">
-                </div>
-                <div class="col-md-5">
-                <p>Número de Empleado:</p>
-                <input type="text" readonly="readonly" class="form-control" name="nombre" id="Nombre" value="<?php echo "$idUsuario"?>"  />
-                </div>
-            </center>
+            
 
-        </div>
+            
 
-        </div>
-
-        <!--seccion pie de página-->
-        <div class="row">
-            <div class=col-md-12>
-                <footer class="pie">
-                    Derechos reservados 2019
-                </footer>
-
-            </div>
-
-        </div>
-
-
-
-
+       
+      </div>
     </div>
 
+    <!--seccion pie de página-->
+    <div class="row">
+      <div class="col-md-12">
+        <footer class="pie">
+          Derechos reservados 2019
+        </footer>
+      </div>
+    </div>
 
+  </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="../../js/jquery-3.4.1.min.js"></script>

@@ -1,3 +1,65 @@
+<?php
+include_once '../../conexion.php';
+session_start();
+
+$user=$_SESSION['tipo'];
+$a=$_SESSION['username'];
+
+$sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
+
+        $consulta=mysqli_query($connect,$sql);
+        $arreglo=mysqli_fetch_array($consulta);
+        $resultado=mysqli_query($connect,$sql);
+
+        
+        $idUsuario=$arreglo[0];
+        $username=$arreglo[2];
+        $nombre=$arreglo[4];
+        $carrera=$arreglo[8];
+
+/*Requerir conexion con la BD*/
+    $host = "localhost";
+    $usuario ="root";
+    $clave ="";
+    $db = "asesoria";
+   
+   $conexion = new mysqli($host, $usuario, $clave, $db);
+
+   if($conexion->connect_error){
+     die("Conexion fallida: " . $conexion->connect_error);
+   }
+
+  $message = '';
+
+  if (isset($_POST['idMateria']) && isset($_POST['nombreM'])){
+    /*Vincular parametros*/
+    $idMateria = $_POST ['idMateria'];
+    $nombreM = $_POST ['nombreM'];
+
+    
+    /*Agregar datos a la BD*/
+    $sql1 = "INSERT INTO materia (idMateria, nombreM) 
+    VALUES ('$idMateria', '$nombreM')"; 
+    
+    /*Ejecutar consulta para evitar usuarios repetidos*/
+
+    $verificar_usuario = mysqli_query($conexion, "SELECT * FROM materia WHERE idMateria = '$idMateria'");
+    if (mysqli_num_rows($verificar_usuario) > 0) {
+      $verificar_usuario = "Una materia ya esta registrada con esos datos";
+
+      include_once 'actualizarmad.php';
+    }
+
+  if ($conexion->query($sql1) === true){
+    $message = 'Registro exitoso!!';
+} else{
+    die ("Error al registrar la materia" . $conexion->error);
+}
+$conexion->close();
+
+}
+?>
+
 <!doctype html>
 <html lang="es">
 
@@ -34,7 +96,7 @@
                             
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@admin</a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$a"?></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 
@@ -98,6 +160,10 @@
                                 <a class="nav-link" href="actualizarmad.php" tabindex="-1" aria-disabled="true">|
                                     Actualizar materias |</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="actualizarmp.php" tabindex="-1" aria-disabled="true">|
+                                    Actualizar materias a profesor |</a>
+                            </li>
                         </ul>
                     </div>
                 </nav>
@@ -105,104 +171,48 @@
             </div>
         </div>
 
-
         <div class="row home">
-            
-            <div class="col-md-12">
-                <h2>Actualizar materias de profesores.</h2>
+      <div class="col-md-12">
+        <h2 class="recuperar">Registro de nueva Materia</h2>
+
+        <form action="#" method="POST">
+
+          
+
+          <div class="form-row">
+             <div class="form-group col-md-6">
+              <label for="inputEmail4">Id Materia</label>
+              <input type="idUsuario" name="idMateria" class="form-control" id="idMateria" placeholder="Ej. AW">
             </div>
 
-            <div class="col-md-5">
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                </br>
-    
-                <select class="custom-select">
-                    <option selected>Profesor</option>
-                    <option value="1">Anzo Vázquez David Mokhtar</option>
-                    <option value="2">Rubio Hernández J.Refigio</option>
-                    <option value="3">Parra Rodríguez Gerardo</option>
-                    <option value="4">Barrón Rodrguez Gabriel</option>
-                    <option value="5">Hernández Sandoval Juana Martha</option>
-                    <option value="6">Torres Rivera Jaime</option>
-                    <option value="7">Villanueva Gaytán Pamela</option>
-                </select>
-    
+            <div class="form-group col-md-6">
+              <label for="inputEmail4">Nombre de la Materia</label>
+              <input type="text" name="nombreM" class="form-control" id="nombreM" placeholder="Aplicaciones Web">
             </div>
-            <div class="col-md-2">
 
-            </div>
-            
-            <div class="col-md-5">
-    
-                <div class="tema">
-                    <label for="exampleFormControlTextarea1" >Actualizar materias:</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Actualización."></textarea>
-               </div>
-           
-            </div>
+          </div>
+          <input type="submit" class="btn btn-primary" value="Registrar" >
+         
+        </form>
 
             
-        <div class="col-md-12">
-             
-        </div>
 
-        <div class="col-md-12 ">
-            <center>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                    Guardar
-                </button>
+            
 
-                <!-- Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="0" role="dialog"
-                    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalCenterTitle">Aviso</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                Las materias han sido actualizadas.
-                            </div>
-                            <div class="modal-footer">
-                                    
-                                <button data-dismiss="modal" type="button" class="btn btn-primary">Aceptar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </center>
-        </div>
-
-
-
-        </div>
-
-        <!--seccion pie de página-->
-        <div class="row">
-            <div class=col-md-12>
-                <footer class="pie">
-                    Derechos reservados 2019
-                </footer>
-
-            </div>
-
-        </div>
-
-
-
-
+       
+      </div>
     </div>
 
+    <!--seccion pie de página-->
+    <div class="row">
+      <div class="col-md-12">
+        <footer class="pie">
+          Derechos reservados 2019
+        </footer>
+      </div>
+    </div>
 
+  </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="../../js/jquery-3.4.1.min.js"></script>
