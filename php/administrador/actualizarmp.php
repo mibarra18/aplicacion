@@ -1,44 +1,34 @@
 <?php
-/*Requerir conexion con la BD*/
-    $host = "localhost";
-    $usuario ="root";
-    $clave ="";
-    $db = "asesoria";
-   
-   $conexion = new mysqli($host, $usuario, $clave, $db);
+session_start(); //Esta dentro de un inicio de sesion
 
-   if($conexion->connect_error){
-     die("Conexion fallida: " . $conexion->connect_error);
-   }
+//ComboBox
 
-  $message = '';
+require "../../conexion.php";
 
-  if (isset($_POST['idMateria']) && isset($_POST['nombreM'])){
-    /*Vincular parametros*/
-    $idMateria = $_POST ['idMateria'];
-    $nombreM = $_POST ['nombreM'];
+//Profesor
+$sql = "SELECT idUsuario, nombreP, idTipoUsuario FROM usuario WHERE (idTipoUsuario =2)";
 
-    
-    /*Agregar datos a la BD*/
-    $sql1 = "INSERT INTO materia (idMateria, nombreM) 
-    VALUES ('$idMateria', '$nombreM')"; 
-    
-    /*Ejecutar consulta para evitar usuarios repetidos*/
+$resultadoProf = mysqli_query($connect,$sql) or die("Problemas al Consultar".mysqli_error($connect));
 
-    $verificar_usuario = mysqli_query($conexion, "SELECT * FROM materia WHERE idMateria = '$idMateria'");
-    if (mysqli_num_rows($verificar_usuario) > 0) {
-      $verificar_usuario = "Una materia ya esta registrada con esos datos";
+$resultadoProf1 = mysqli_query($connect,$sql) or die("Problemas al Consultar".mysqli_error($connect));
 
-      include_once 'actualizarmad.php';
-    }
+$resultadoProf2 = mysqli_query($connect,$sql) or die("Problemas al Consultar".mysqli_error($connect));
 
-  if ($conexion->query($sql1) === true){
-    $message = 'Registro exitoso!!';
-} else{
-    die ("Error al registrar la materia" . $conexion->error);
-}
-$conexion->close();
+//Materia
+$sql1 = "SELECT idMateria, nombreM FROM materia";
 
+$resultadoMat = mysqli_query($connect,$sql1) or die("Problemas al Consultar".mysqli_error($connect));
+
+$resultadoMat1 = mysqli_query($connect,$sql1) or die("Problemas al Consultar".mysqli_error($connect));
+
+$resultadoMat2 = mysqli_query($connect,$sql1) or die("Problemas al Consultar".mysqli_error($connect));
+
+//ComboBox
+
+if (isset($_POST['btnInsertar']) && isset($_POST['btnInsertar'])=="Inserta") {
+    $_SESSION['idMat'] = $_POST['sltMatIns'];
+    $_SESSION['idProf'] = $_POST['sltProfIns'];
+    header("Location: InsertaMatxProf.php");
 }
 ?>
 
@@ -159,7 +149,33 @@ $conexion->close();
 
         
          
-        </form>
+        <form name="formAdmProf" action="#" method="post">
+			<p>
+				<h2>Asignar Materia</h2>
+			</p>
+			
+			<p>
+			<label>Materia</label>
+			<select name="sltMatIns" class="custom-select mb-3-3" title="Seleccionar Profesor" id="sltMatIns">
+				<option selected="">Selecciona Materia</option>
+				<?php while ($rowMat=mysqli_fetch_array($resultadoMat)) { ?>
+				<option value="<?php echo $rowMat['idMateria']; ?>"><?php echo $rowMat['nombreM']; ?></option>
+				<?php } ?>
+			</select>
+			</p>
+			<p>
+			<label>Profesor</label>
+			<select name="sltProfIns" class="custom-select mb-3-3" title="Seleccionar Profesor" id="sltProfIns">
+				<option selected="">Selecciona Profesor</option>
+				<?php while ($rowProf=mysqli_fetch_array($resultadoProf)) { ?>
+				<option value="<?php echo $rowProf['idUsuario']; ?>"><?php echo $rowProf['nombreP']; ?></option>
+				<?php } ?>
+			</select>
+			</p>
+			<p>
+				<input type="submit" value="Inserta" class="btn btn-success" name="btnInsertar" id="btnInsertar"/>
+			</p>
+            </form>
 
             
 
