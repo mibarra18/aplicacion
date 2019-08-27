@@ -48,7 +48,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
 
             <div class="col-md-4">
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-light ">
 
 
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -56,7 +56,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
                             
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$username"?></a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$a"?></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 
@@ -117,6 +117,9 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
                             </li>
                             <li class="nav-item">
                               <a class="nav-link" href="actualizarmad.php" tabindex="-1" aria-disabled="true">|   Actualizar materias   |</a>
+                          </li>
+                          <li class="nav-item">
+                             <a class="nav-link" href="actualizarmp.php" tabindex="-1" aria-disabled="true">| Actualizar materias a profesor |</a>
                           </li>
                         </ul>
                     </div>

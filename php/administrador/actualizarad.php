@@ -133,8 +133,10 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
                 </div>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="actualizarmad.php" tabindex="-1" aria-disabled="true">| Actualizar Datos
-                  |</a>
+                <a class="nav-link" href="actualizarmad.php" tabindex="-1" aria-disabled="true">| Actualizar materias  |</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="actualizarmp.php" tabindex="-1" aria-disabled="true">| Actualizar materias a profesor |</a>
               </li>
 
             </ul>

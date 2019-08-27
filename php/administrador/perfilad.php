@@ -128,6 +128,10 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
                             <li class="nav-item">
                                 <a class="nav-link" href="actualizarmad.php" tabindex="-1" aria-disabled="true">|   Actualizar materias   |</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="actualizarmp.php" tabindex="-1" aria-disabled="true">|
+                                    Actualizar materias a profesor |</a>
+                            </li>
                           
                         </ul>
                     </div>
@@ -155,7 +159,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
         <div class="col-md-4">
 
             <center>
-                <img src="../../imagenes/profe.png" width="200px" class="img-fluid" alt="Responsive image">
+                <img src="../../imagenes/dire.jpg" width="200px" class="img-fluid" alt="Responsive image">
                 <div class="col-md-7">
                 </div>
                 <div class="col-md-5">

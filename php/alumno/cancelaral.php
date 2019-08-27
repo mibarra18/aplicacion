@@ -61,12 +61,10 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
 
             <div class="col-md-4">
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-light ">
                 <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="notificacionesal.html">Notificaciones</a>
-                            </li>
+                            
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$a"?></a>
@@ -119,7 +117,7 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
                                 <a class="nav-link" href="solicitarAsesoria.php" tabindex="-1"aria-disabled="true">|   Solicitar asesoria   |</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">|   Cancelar asesoria   |</a>
+                                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">|   Lista de asesorias   |</a>
                             </li>
                         </ul>
                     </div>

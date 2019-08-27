@@ -1,3 +1,28 @@
+<?php
+include_once '../../conexion.php';
+session_start();
+
+
+
+$user=$_SESSION['tipo'];
+$a=$_SESSION['username'];
+
+$sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
+
+        $consulta=mysqli_query($connect,$sql);
+        $arreglo=mysqli_fetch_array($consulta);
+        $resultado=mysqli_query($connect,$sql);
+
+        
+        $idUsuario=$arreglo[0];
+        $username=$arreglo[2];
+        $nombre=$arreglo[4];
+        $carrera=$arreglo[8];
+		
+
+?>
+
+
 <!doctype html>
 <html lang="es">
 
@@ -36,7 +61,7 @@
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@admin</a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$a"?></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 

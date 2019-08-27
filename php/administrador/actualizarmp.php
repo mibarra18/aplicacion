@@ -30,6 +30,23 @@ if (isset($_POST['btnInsertar']) && isset($_POST['btnInsertar'])=="Inserta") {
     $_SESSION['idProf'] = $_POST['sltProfIns'];
     header("Location: InsertaMatxProf.php");
 }
+
+$user=$_SESSION['tipo'];
+$a=$_SESSION['username'];
+
+$sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
+
+        $consulta=mysqli_query($connect,$sql);
+        $arreglo=mysqli_fetch_array($consulta);
+        $resultado=mysqli_query($connect,$sql);
+
+        
+        $idUsuario=$arreglo[0];
+        $username=$arreglo[2];
+        $nombre=$arreglo[4];
+        $carrera=$arreglo[8];
+
+
 ?>
 
 <!doctype html>
@@ -60,7 +77,7 @@ if (isset($_POST['btnInsertar']) && isset($_POST['btnInsertar'])=="Inserta") {
 
             <div class="col-md-4">
 
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-light ">
 
 
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -68,7 +85,7 @@ if (isset($_POST['btnInsertar']) && isset($_POST['btnInsertar'])=="Inserta") {
                             
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@admin</a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$a"?></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
 
@@ -133,7 +150,7 @@ if (isset($_POST['btnInsertar']) && isset($_POST['btnInsertar'])=="Inserta") {
                                     Actualizar materias |</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="actualizarmp.php" tabindex="-1" aria-disabled="true">|
+                                <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">|
                                     Actualizar materias a profesor |</a>
                             </li>
                         </ul>
@@ -173,7 +190,7 @@ if (isset($_POST['btnInsertar']) && isset($_POST['btnInsertar'])=="Inserta") {
 			</select>
 			</p>
 			<p>
-				<input type="submit" value="Inserta" class="btn btn-success" name="btnInsertar" id="btnInsertar"/>
+				<input type="submit" value="Insertar" class="btn btn-primary" name="btnInsertar" id="btnInsertar"/>
 			</p>
             </form>
 

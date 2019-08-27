@@ -26,8 +26,8 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
         $idUsuario=$arreglo[0];
         $username=$arreglo[2];
         $nombre=$arreglo[4];
-        $grupo=$arreglo[6];
-        $carrera=$arreglo[7];
+        $grupo=$arreglo[7];
+        $carrera=$arreglo[8];
 
 		
 
@@ -60,15 +60,13 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
             </div>
 
             <div class="col-md-4">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <nav class="navbar navbar-expand-lg navbar-light ">
                     <div class="collapse navbar-collapse" id="navbarNavDropdown">
                         <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a class="nav-link" href="notificacionesal.html">Notificaciones</a>
-                            </li>
+                   
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" name="username" href="perfilal.php" id="navbarDropdownMenuLink" role="button"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$username"?></a>
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">@<?php echo "$a"?></a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="../../salir.php">Cerrar sesión</a>
                                 </div> 
@@ -117,7 +115,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
                                 <a class="nav-link" href="solicitarAsesoria.php" tabindex="-1"aria-disabled="true">|   Solicitar asesoria   |</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="cancelaral.php" tabindex="-1" aria-disabled="true">|   Cancelar asesoria   |</a>
+                                <a class="nav-link" href="cancelaral.php" tabindex="-1" aria-disabled="true">|   Lista de asesorias   |</a>
                             </li>
                         </ul>
                     </div>

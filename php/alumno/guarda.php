@@ -52,9 +52,9 @@
         <link href='http://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
         <link href="calendar.min.css" rel="stylesheet">
     </head>
-    <body class="fondo">
+    <body background="../../imagenes/fundo.jpg">
         <main>
-            <div class="container"><h1>Solicitud de asesoria completa </h1></div>
+            <div class="container"><h2>Solicitud de asesoria completada </h2></div>
            
             <button type="button" class="btn btn-primary" onclick="location.href='solicitarAsesoria.php'"><span ></span> Regresar</button><br>
         </main>

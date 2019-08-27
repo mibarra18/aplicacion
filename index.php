@@ -152,8 +152,7 @@ if(isset($_GET['salir'])){
                     <a class="reg" href="php/registroal.php">Registrate</a>
                     <br>
                     <br>
-                <a class="contra" href="html/recuperaral.html">¿Olvidaste tu usuario o contraseña?</a>
-                </section>
+                
 
             </div>
             <div class="col-md-8">
