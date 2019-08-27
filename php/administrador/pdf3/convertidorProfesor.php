@@ -1,6 +1,6 @@
 <?php 
   require_once('conexion/conexion.php');  
-  $usuario = 'SELECT nombreP,tipo, idAsesoria, tema FROM usuario,tipoUsuario, asesoria where tipousuario.tipo="Profesor" AND usuario.idTipoUsuario=2';  
+  $usuario = 'SELECT nombreP, idAsesoria, tema FROM usuario, asesoria where usuario.idTipoUsuario=2';  
   $usuarios=$mysqli->query($usuario);
   
 if(isset($_POST['create_pdf'])){
@@ -38,7 +38,6 @@ if(isset($_POST['create_pdf'])){
         <thead>
           <tr bgcolor=#C4C4C4>
              <th>Nombre</th>
-            <th>Profesor</th>
             <th>tema</th>
             <th>Numero</th>
           </tr>
@@ -50,7 +49,6 @@ if(isset($_POST['create_pdf'])){
   $content .= '
     <tr>
             <td>'.$user['nombreP'].'</td>
-            <td>'.$user['tipo'].'</td>
             <td>'.$user['tema'].'</td>
             <td>'.$user['idAsesoria'].'</td>
         </tr>
@@ -131,7 +129,6 @@ background-image: url(../estilosLogin/imagen2.jpg);
         <thead>
           <tr bgcolor=#C4C4C4>
           <th>Nombre</th>
-            <th>Profesor</th>
             <th>tema</th>
             <th>Numero</th>
           
@@ -142,7 +139,6 @@ background-image: url(../estilosLogin/imagen2.jpg);
       while ($user=$usuarios->fetch_assoc()) {   ?>
           <tr>
             <td bgcolor="white"><?php echo $user['nombreP']; ?></td>
-            <td bgcolor="white"><?php echo $user['tipo']; ?></td>
             <td bgcolor="white"><?php echo $user['tema']; ?></td>
             <td bgcolor="white"><?php echo $user['idAsesoria']; ?></td>
           </tr>

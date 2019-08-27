@@ -8,11 +8,13 @@
 		$_SESSION['cpro']=$_POST['comboProfesor'];
 		$_SESSION['cfe']=$_POST['comboFecha'];
 		$_SESSION['tema']=$_POST['tema'];
-		
+		$_SESSION['usr']=$_POST['usr'];
+
 		header("Location: guarda.php");
 		
 	}
 	$a=$_SESSION['username'];
+
 	?>
 <?php
 	require ('conexion.php');
@@ -125,9 +127,11 @@
 			<div class=" table-responsive">
 			<center><h2>Solicitar asesoría</h2></center>
 			<form class="form1" method="post" action="solicitarAsesoria.php">
+				<input type="text" id="usr" name="usr" value="<?php echo "$a";?>" class="texts form-control"  style="visibility:hidden" required/>	
 				<div class=" table-responsive">
 					<div class="form-row">
 						<div class="form-group col-md-6">
+						
 						<label>Selecciona una materia:</label>
 						<select name="comboMateria" id="comboMateria" class="custom-select">
 							<option value="0">Selecciona materia
@@ -139,7 +143,7 @@
 						<div class="form-group col-md-6">
 						<label>Selecciona un profesor:</label>
 						<select name="comboProfesor" id="comboProfesor" class="custom-select">								
-							<td class="opcion" id="nombreP" name="nombreP">
+							<td class="opcion" id="nomPro" name="nombreP">
 						</select>
 						</div>
 

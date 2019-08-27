@@ -25,7 +25,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
 
 
 
-$sql2="SELECT asesoria.idAsesoria,  asesoria.tema, materia.nombreM, horario.dia, usuario.nombre, lugar.nomLug, asistencia.nomAsi FROM asesoria, usuario, lugar, asistencia, materia, horario WHERE  username='$a'";
+$sql2="SELECT asesoria.idAsesoria,  asesoria.tema, materia.nombreM, horario.dia, usuario.nombre, lugar.nomLug, asistencia.nomAsi FROM asesoria, usuario, lugar, asistencia, materia, horario,asesoriaalumno WHERE asesoriaalumno.idUsuario=usuario.idUsuario ";
 
 		$consulta2=mysqli_query($connect,$sql2);
 		$arreglo2=mysqli_fetch_array($consulta2);

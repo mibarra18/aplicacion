@@ -10,7 +10,7 @@ $a=$_SESSION['username'];
 
 
 
-$sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombreM, horario.dia, usuario.nombreP, lugar.nomLug, usuario.idUsuario FROM asesoria, usuario, estatus, materia, horario, lugar WHERE asesoria.idEstatus = estatus.idEstatus AND username='$a'";
+$sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombreM, horario.dia, usuario.nombreP, lugar.nomLug, usuario.idUsuario,asesoriaprofesor.idUsuario FROM asesoria, usuario, estatus, materia, horario, lugar, asesoriaprofesor WHERE asesoriaprofesor.idUsuario=usuario.idUsuario ";
 
 		$consulta2=mysqli_query($connect,$sql2);
 		$arreglo2=mysqli_fetch_array($consulta2);
@@ -26,7 +26,7 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
 
         if(isset($_POST['btnCancelar'])&& isset($_POST['btnCancelar'])=="Cancelar")
         {
-            $sql="UPDATE asesoria SET idEstatus=3 WHERE idAsesoria='$idAsesoria'";
+            $sql="DELETE FROM asesoria WHERE idAsesoria='$idAsesoria'";
             $resultado=mysqli_query($connect,$sql) or die(mysqli_error());
         }
 
@@ -173,6 +173,7 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
   <tbody role="rowgroup">
   <?php
 	
+    while ($row=mysqli_fetch_array($resultado2)) {
 	?>
     <tr role="row">
             <td><p  id="idAsesoria" name="idAsesoria" ><?php echo "$idAsesoria"?></p></td>
@@ -186,8 +187,8 @@ $sql2="SELECT asesoria.idAsesoria, asesoria.tema, estatus.estatus, materia.nombr
     </tr>
    
     <?php
-    
-    
+    }
+
     ?>
     
     

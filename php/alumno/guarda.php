@@ -10,12 +10,27 @@
 	$cf=$_SESSION['cfe'];
 	$tema=$_SESSION['tema'];
 	$estatus=1;
+    $usr=$_SESSION['usr'];
+
+    $nomPro= "SELECT idUsuario From usuario WHERE usuario.username='$usr'";
+    
+    $resultadox=mysqli_query($mysqli0,$nomPro) or die(mysqli_error());
+    $arreglox=mysqli_fetch_array($resultadox) or die(mysqli_error());
+    $idUsuario=$arreglox[0];
 
 
+    $sql= "INSERT INTO asesoria(tema,idEstatus,idMateria,idHorario) VALUES('$tema','$estatus','$mat','$cf')";
+    $resultado=mysqli_query($mysqli0,$sql)or die(mysqli_error());
+    $sql2="SELECT idAsesoria from asesoria where tema='$tema' and idEstatus='$estatus' and idMateria='$mat' and idHorario='$cf'";
+    $resultadoA=mysqli_query($mysqli0,$sql2) or die(mysqli_error());
+    $arregloA=mysqli_fetch_array($resultadoA) or die(mysqli_error());
+    $idAsesoria=$arregloA[0];
 
-	$sql= "INSERT INTO asesoria(idMateria,tema,idEstatus,idHorario) VALUES('$mat','$tema',1,'$cf')";
-	$resultado=mysqli_query($mysqli0,$sql) or die(mysqli_error());
-	
+    $sql3= "INSERT INTO asesoriaalumno(idAsesoria,idUsuario) VALUES('$idAsesoria','$idUsuario')";
+    $resultado3=mysqli_query($mysqli0,$sql3)or die(mysqli_error());
+    $sql4= "INSERT INTO asesoriaprofesor(idAsesoria,idUsuario) VALUES('$idAsesoria','$pro')";
+    $resultado4=mysqli_query($mysqli0,$sql4)or die(mysqli_error());
+
 
 ?>
 

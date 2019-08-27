@@ -25,7 +25,7 @@ $sql="SELECT * FROM usuario WHERE username='$a' AND idTipoUsuario='$user'";
 
 
 
-$sql2="SELECT asesoria.idAsesoria,  asesoria.tema, estatus.estatus, materia.nombreM, horario.dia, usuario.nombre, usuario.idUsuario, asesoria.idLugar FROM asesoria, usuario, estatus, materia, horario WHERE asesoria.idEstatus = estatus.idEstatus AND username='$a'";
+$sql2="SELECT asesoria.idAsesoria,  asesoria.tema, estatus.estatus, materia.nombreM, horario.dia, usuario.nombre, asesoria.idLugar,asesoriaalumno.idUsuario FROM asesoria, usuario, estatus, materia, horario,asesoriaalumno WHERE asesoriaalumno.idUsuario=usuario.idUsuario AND asesoria.idEstatus = estatus.idEstatus ";
 
 		$consulta2=mysqli_query($connect,$sql2);
 		$arreglo2=mysqli_fetch_array($consulta2);
@@ -37,7 +37,7 @@ $sql2="SELECT asesoria.idAsesoria,  asesoria.tema, estatus.estatus, materia.nomb
 		$nombreM=$arreglo2[3];
         $dia=$arreglo2[4];
         $nombre=$arreglo2[5];
-        $nombre=$arreglo2[6];
+        $nomLugar=$arreglo2[6];
         
         if(isset($_POST['btnCancelar'])&& isset($_POST['btnCancelar'])=="Cancelar")
         {
